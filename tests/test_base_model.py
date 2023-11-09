@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""
+tests for baseModel class
+"""
 import unittest
 from unittest.mock import patch
 from datetime import datetime

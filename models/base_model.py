@@ -1,3 +1,10 @@
+#!/usr/bin/python3
+
+"""
+Module containing the Base model super class for all models
+
+"""
+from models import storage
 import uuid
 from datetime import datetime
 
