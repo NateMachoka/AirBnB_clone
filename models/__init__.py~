@@ -1,0 +1,7 @@
+project_root/
+│
+├── models/
+│   ├── __init__.py
+│   └── base_model.py
+│
+└── other_files_and_directories/
