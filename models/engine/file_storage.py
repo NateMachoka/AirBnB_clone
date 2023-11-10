@@ -19,17 +19,16 @@ class FileStorage:
         """Returns the dictionary __objects."""
         return self.__objects
 
-    def classes(self):
-        """Returns the dictionary __classes."""
-        return self.__classes
-
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id."""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
         self.__objects[key] = obj
 
+        self.__classes[obj.__class__.__name__] = obj.__class__
+
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)."""
+        self.update_classes()
         serialized_objects = {key: obj.to_dict() for key, obj in self.__objects.items()}
         with open(self.__file_path, 'w', encoding='utf-8') as file:
             json.dump(serialized_objects, file)
@@ -45,6 +44,7 @@ class FileStorage:
                     class_name, obj_id = key.split('.')
                     obj_cls = globals().get(class_name)
                     if obj_cls:
+                        self.__classes[class_name] = obj_cls
                         self.__objects[key] = obj_cls(**value)
         except FileNotFoundError:
             pass

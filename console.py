@@ -58,13 +58,12 @@ class HBNBCommand(cmd.Cmd):
             return
 
         key = "{}.{}".format(class_name, args[1])
+        if class_name not in storage.classes().keys():
+            print("** class doesn't exist **")
+            return
 
         if key not in storage.all():
             print("** no instance found **")
-            return
-
-        if class_name not in storage.classes().keys():
-            print("** class doesn't exist **")
             return
 
         obj_dict = storage.all().get(key)
@@ -108,7 +107,7 @@ class HBNBCommand(cmd.Cmd):
             args = arg.split()
             class_name = args[0]
 
-            if class_name not in storage.classes().keys():
+            if hasattr(storage, 'classes') and class_name not in storage.classes.keys():
                 print("** class doesn't exist **")
             else:
                 print([str(objs[key]) for key in objs if key.startswith(class_name)])
